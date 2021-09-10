@@ -1,14 +1,17 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
+import FinishScreen from './FinishScreen';
 import PlanetCard from './PlanetCard';
 
-export default function Finder() {
+export default function Finder({token}) {
   const [planet,setPlanet] = useState(null);
   const [isPlanetLoaded,setisPlanetLoaded] = useState(false);
   const [vehicle,setVehicle] = useState(null);
   const [isVehicleLoaded,setisVehicleLoaded] = useState(false);
   const [planetVisted,setPlanetVisited] = useState([]);
+  const [spaceShipTaken,setSpaceShipTaken] = useState([]);
   const [time,setTime] = useState(0);
+  const [success,setSuccess] = useState({});
 
   const fetchPlanet = async() =>{
     try {
@@ -32,10 +35,43 @@ export default function Finder() {
     }
   }
 
+  const operationFalcone = async() => {
+      console.log(token);
+
+      const falconFetcherRequest = {
+        method:'POST',
+        headers: {
+          'accept':'application/json'
+        },
+        body:JSON.stringify({
+            token:"abc",
+            "planet_names":planetVisted,
+            "vehicle_names":spaceShipTaken
+        })
+      }
+      try {
+          const falconFetcher = await fetch('https://findfalcone.herokuapp.com/find',falconFetcherRequest);
+          if(falconFetcher.ok){
+          const data = await falconFetcher.json();
+          setSuccess(data);
+          console.log(data);
+          }
+      } catch (error) {
+        alert("TOken Expired")
+      }
+  }
+
+  const readyToStart = () => {
+    if(planetVisted.length === 4 && spaceShipTaken.length === 4)
+        return false;
+    return true;
+  }
+
   useEffect(() => {
       fetchPlanet();
       fetchVehicle();
   },[]);
+
 
   const planetToVisit2 = planet?.filter(plt => !planetVisted.slice(0,1).includes(plt.name));
   const planetToVisit3 = planet?.filter(plt => !planetVisted.slice(0,2).includes(plt.name));
@@ -44,24 +80,79 @@ export default function Finder() {
         <div className="container">
             <div className="row">
                 <div className="col-md-3">
-                    <PlanetCard originalPlanet={planet} isPlanetLoaded={isPlanetLoaded} planet={planet} isVehicleLoaded={isVehicleLoaded} vehicle={vehicle} setVehicle={setVehicle} planetVisted={planetVisted} setPlanetVisited={setPlanetVisited} name={"planet1"} time={time} setTime={setTime}  />
+                    <PlanetCard
+                     originalPlanet={planet}
+                      isPlanetLoaded={isPlanetLoaded} 
+                      planet={planet} 
+                      isVehicleLoaded={isVehicleLoaded} 
+                      vehicle={vehicle} setVehicle={setVehicle} 
+                      planetVisted={planetVisted} 
+                      setPlanetVisited={setPlanetVisited} 
+                      name={"planet1"} time={time} 
+                      setTime={setTime} 
+                      spaceShipTaken={spaceShipTaken} 
+                      setSpaceShipTaken={setSpaceShipTaken}  />
                 </div>
                 <div className="col-md-3">
-                    <PlanetCard originalPlanet={planet} isPlanetLoaded={isPlanetLoaded} planet={planetToVisit2} isVehicleLoaded={isVehicleLoaded} vehicle={vehicle} setVehicle={setVehicle} planetVisted={planetVisted} setPlanetVisited={setPlanetVisited} name={"planet2"} time={time} setTime={setTime} />
+                    <PlanetCard 
+                        originalPlanet={planet} 
+                        isPlanetLoaded={isPlanetLoaded} 
+                        planet={planetToVisit2} 
+                        isVehicleLoaded={isVehicleLoaded} 
+                        vehicle={vehicle} 
+                        setVehicle={setVehicle} 
+                        planetVisted={planetVisted} 
+                        setPlanetVisited={setPlanetVisited} 
+                        name={"planet2"} 
+                        time={time} 
+                        setTime={setTime} 
+                        spaceShipTaken={spaceShipTaken} 
+                        setSpaceShipTaken={setSpaceShipTaken} />
                 </div>
                 <div className="col-md-3">
-                    <PlanetCard originalPlanet={planet} isPlanetLoaded={isPlanetLoaded} planet={planetToVisit3} isVehicleLoaded={isVehicleLoaded} vehicle={vehicle} setVehicle={setVehicle} planetVisted={planetVisted} setPlanetVisited={setPlanetVisited} name={"planet3"} time={time} setTime={setTime} />
+                    <PlanetCard 
+                        originalPlanet={planet} 
+                        isPlanetLoaded={isPlanetLoaded} 
+                        planet={planetToVisit3} 
+                        isVehicleLoaded={isVehicleLoaded} 
+                        vehicle={vehicle} setVehicle={setVehicle} 
+                        planetVisted={planetVisted} 
+                        setPlanetVisited={setPlanetVisited} 
+                        name={"planet3"} 
+                        time={time} 
+                        setTime={setTime} 
+                        spaceShipTaken={spaceShipTaken} 
+                        setSpaceShipTaken={setSpaceShipTaken} />
                 </div>
                 <div className="col-md-3">
-                    <PlanetCard originalPlanet={planet} isPlanetLoaded={isPlanetLoaded} planet={planetToVisit4} isVehicleLoaded={isVehicleLoaded} vehicle={vehicle} setVehicle={setVehicle} planetVisted={planetVisted} setPlanetVisited={setPlanetVisited} name={"planet4"} time={time} setTime={setTime} />
+                    <PlanetCard 
+                        originalPlanet={planet} 
+                        isPlanetLoaded={isPlanetLoaded} 
+                        planet={planetToVisit4} 
+                        isVehicleLoaded={isVehicleLoaded} 
+                        vehicle={vehicle} 
+                        setVehicle={setVehicle} 
+                        planetVisted={planetVisted} 
+                        setPlanetVisited={setPlanetVisited} 
+                        name={"planet4"} 
+                        time={time} 
+                        setTime={setTime} 
+                        spaceShipTaken={spaceShipTaken} 
+                        setSpaceShipTaken={setSpaceShipTaken} />
                 </div>
             </div>
             <div className="row">
                 <h3>Total Time Taken: {time}</h3>
             </div>
             <div className="col text-center mt-3">
-                <button className="text-center btn btn-primary">Start Seach</button>
+                <button
+                    className="text-center btn btn-primary"
+                    disabled={readyToStart()}
+                    onClick={() => operationFalcone()}>Start Seach
+                </button>
             </div>
+
+            <FinishScreen success={success} />
       </div>
     )
 }

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 
-export default function PlanetCard({originalPlanet,isPlanetLoaded,planet,isVehicleLoaded,vehicle,setVehicle,planetVisted,setPlanetVisited,name,time,setTime}) {
+export default function PlanetCard({originalPlanet,isPlanetLoaded,planet,isVehicleLoaded,vehicle,setVehicle,planetVisted,setPlanetVisited,name,time,setTime,spaceShipTaken,setSpaceShipTaken}) {
     const [planetValue,setPlanetValue] = useState('');
+    const [spaceshipValue,setSpaceshipValue] = useState('');
     const [spaceShip,loadSpaceShip] = useState(false);
     const [attack,setAttack] = useState(false);
     const [radio,freezeRadio] = useState(false);
@@ -23,9 +24,12 @@ export default function PlanetCard({originalPlanet,isPlanetLoaded,planet,isVehic
         // if(planetVisted.length > 4)
         //     return;
         const selectedVehicle = vehicle.filter(v => v.name === vl)[0];
+
+        setSpaceShipTaken([...spaceShipTaken,vl])
         console.log(selectedVehicle);
         setVehicle([...vehicle.filter(v => v.name !== vl),{...selectedVehicle,total_no:selectedVehicle.total_no-1}]);
         const speed = selectedVehicle.speed;
+        console.log(planetVisted.length);
         const distance = originalPlanet.filter(pl => pl.name === planetVisted[planetVisted.length - 1])[0].distance;
         const tm = parseInt(distance)/parseInt(speed);
 
@@ -43,11 +47,11 @@ export default function PlanetCard({originalPlanet,isPlanetLoaded,planet,isVehic
             })}
             </select>
             <br />
-            <div onBlur={(e) =>  calculateScore(e.target.value)}>
+            <div value={spaceshipValue} onChange={(e) => setSpaceshipValue(e.target.value)}  onBlur={(e) =>  calculateScore(spaceshipValue)}>
             {isVehicleLoaded && spaceShip &&  vehicle?.map((vl,idx) => {
                 return(
                     <div key={idx}>
-                        <input type="radio" value={vl.name} name={name} disabled={vl.total_no === 0 || radio} /> {vl.name}({vl.total_no})
+                        <input type="radio" value={vl.name} name={name} disabled={vl.total_no === 0 || radio} checked={vl.name === spaceshipValue} readOnly={true} /> {vl.name}({vl.total_no})
                     </div>
                 )
             })}
