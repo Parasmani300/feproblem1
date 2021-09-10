@@ -38,7 +38,7 @@ export default function PlanetCard({originalPlanet,isPlanetLoaded,planet,isVehic
     }
     
     return (
-        <div className="card mb-4">
+        <div className="card shadow p-3 mb-5 bg-white rounded mb-4">
             <div className="card-body">
             <select
                 className="form-control" 

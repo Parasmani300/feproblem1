@@ -1,43 +1,36 @@
-import { useEffect, useState } from 'react';
-import './App.css';
-import Finder from './components/Finder';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
 import Footer from './components/Footer';
 import Navigation from './components/Navigation';
+import Home from './Pages/Home';
+import Mission from './Pages/Mission';
+import StoryLine from './Pages/StoryLine';
 
 function App() {
 
-  const [token,setToken] = useState(null);
-  
-  useEffect(() => {
-    const tokenOptions = {
-      method:'POST',
-      headers: {
-        'accept':'application/json'
-      }
-    }
-
-    const tokenMaker = async() => {
-      try{
-        const fetchToken = await fetch('https://findfalcone.herokuapp.com/token',tokenOptions)
-        const data = await fetchToken.json();
-        setToken(data);
-      }catch(err)
-      {
-        console.log(err);
-      }
-      
-    }
-
-    tokenMaker();
-    
-  },[])
 
   return (
-    <div className="container-fluid">
+    <Router>
       <Navigation />
-      <Finder token={token} />
+      <Switch>
+          <Route path="/mission" >
+              <Mission />
+          </Route>
+          <Route path="/story" >
+              <StoryLine />
+          </Route>
+          <Route path="/home" >
+              <Home />
+          </Route>
+          <Route path="/" >
+              <Home />
+          </Route>
+      </Switch>
       <Footer />
-    </div>
+    </Router>
   );
 }
 
