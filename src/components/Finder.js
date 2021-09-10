@@ -36,8 +36,6 @@ export default function Finder({token}) {
   }
 
   const operationFalcone = async() => {
-      console.log(token);
-
       const falconFetcherRequest = {
         method:'POST',
         headers: {
@@ -54,10 +52,9 @@ export default function Finder({token}) {
           if(falconFetcher.ok){
           const data = await falconFetcher.json();
           setSuccess(data);
-          console.log(data);
           }
       } catch (error) {
-        alert("TOken Expired")
+        console.log(error);
       }
   }
 
