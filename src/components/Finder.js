@@ -44,7 +44,7 @@ export default function Finder({token}) {
           'accept':'application/json'
         },
         body:JSON.stringify({
-            token:"abc",
+            token:token.token,
             "planet_names":planetVisted,
             "vehicle_names":spaceShipTaken
         })
