@@ -47,21 +47,7 @@ export default function Mission() {
                         API breifing
                     </h5>
                     <div>
-                        <table className="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        API used
-                                    </th>
-                                    <th>
-                                        Request type
-                                    </th>
-                                    <th>
-                                        Add. Info
-                                    </th>
-                                </tr>
-                            </thead>
-                        </table>
+                    
                     </div>
                 </div>
             </div>

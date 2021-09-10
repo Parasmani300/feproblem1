@@ -3,6 +3,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
+import FinishScreen from './components/FinishScreen';
 import Footer from './components/Footer';
 import Navigation from './components/Navigation';
 import Home from './Pages/Home';
@@ -24,6 +25,9 @@ function App() {
           </Route>
           <Route path="/home" >
               <Home />
+          </Route>
+          <Route path="/finish" >
+              <FinishScreen />
           </Route>
           <Route path="/" >
               <Home />

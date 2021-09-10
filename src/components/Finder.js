@@ -1,7 +1,8 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
-import FinishScreen from './FinishScreen';
+// import FinishScreen from './FinishScreen';
 import PlanetCard from './PlanetCard';
+import {useHistory} from 'react-router-dom'
 
 export default function Finder({token}) {
   const [planet,setPlanet] = useState(null);
@@ -11,7 +12,8 @@ export default function Finder({token}) {
   const [planetVisted,setPlanetVisited] = useState([]);
   const [spaceShipTaken,setSpaceShipTaken] = useState([]);
   const [time,setTime] = useState(0);
-  const [success,setSuccess] = useState({});
+
+  const history = useHistory();
 
   const fetchPlanet = async() =>{
     try {
@@ -51,7 +53,13 @@ export default function Finder({token}) {
           const falconFetcher = await fetch('https://findfalcone.herokuapp.com/find',falconFetcherRequest);
           if(falconFetcher.ok){
           const data = await falconFetcher.json();
-          setSuccess(data);
+          
+          history.push({
+              pathname:'/finish',
+              state:{
+                  success:data
+              }
+          });
           }
       } catch (error) {
         console.log(error);
@@ -148,8 +156,6 @@ export default function Finder({token}) {
                     onClick={() => operationFalcone()}>Start Seach
                 </button>
             </div>
-
-            <FinishScreen success={success} />
       </div>
     )
 }
