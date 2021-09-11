@@ -53,7 +53,7 @@ export default function Finder({token}) {
           const falconFetcher = await fetch('https://findfalcone.herokuapp.com/find',falconFetcherRequest);
           if(falconFetcher.ok){
           const data = await falconFetcher.json();
-          
+
           history.push({
               pathname:'/finish',
               state:{
@@ -83,6 +83,7 @@ export default function Finder({token}) {
   const planetToVisit4 = planet?.filter(plt => !planetVisted.slice(0,3).includes(plt.name));
     return (
         <div className="container">
+            <h3 className="text-center"> Operation Falcone </h3>
             <div className="row">
                 <div className="col-md-3">
                     <PlanetCard

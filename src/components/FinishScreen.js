@@ -12,13 +12,13 @@ export default function FinishScreen() {
         <div className="card mt-4 mb-4 pt-4 pb-4">
         {(success.status === "false") &&
             <div>
-                <h4 className="text-center">Sorry King, QUeen is not on that planet</h4>
+                <h4 className="text-center">Sorry King, Queen is not on these planet</h4>
             </div>
         }
         {
             (success.status === "success") &&
-            <div>
-                <h4 className="text-center">Queen Found, yeah  Planet name: {success.planet_name}</h4>
+            <div style={{marginTop:"100px",marginBottom:"100px"}}>
+                <h4 className="text-center">King Shah Happy, Queen found on Planet: {success.planet_name}</h4>
             </div>
         }
         </div>

@@ -25,11 +25,9 @@ export default function PlanetCard({originalPlanet,isPlanetLoaded,planet,isVehic
     const calculateScore = (vl) => {
 
         const selectedVehicle = vehicle.filter(v => v.name === vl)[0];
-        setSpaceShipTaken([...spaceShipTaken,vl])
-        // console.log(selectedVehicle);
+        setSpaceShipTaken([...spaceShipTaken,vl]);
         setVehicle([...vehicle.filter(v => v.name !== vl),{...selectedVehicle,total_no:selectedVehicle.total_no-1}]);
         const speed = selectedVehicle.speed;
-        // console.log(planetVisted.length);
         const distance = originalPlanet.filter(pl => pl.name === planetVisted[planetVisted.length - 1])[0].distance;
         const tm = parseInt(distance)/parseInt(speed);
 
