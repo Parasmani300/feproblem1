@@ -21,7 +21,7 @@ function App() {
     <Router key={key}>
       <Navigation />
       <div className="container" >
-        <div className="row">
+        <div className="row mb-2">
           <div className="col-10"></div>
           <div className="col-2">
             <button className="btn btn-primary" onClick={() => setKey(key+1)}>
